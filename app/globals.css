@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
 
 .scroll-hidden::-webkit-scrollbar {
     display: none;
@@ -17,19 +18,6 @@
     padding: 0;
 }
 
-.custom-cursor {
-    width: 1px;
-    height: 1px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    border-radius: 1000px;
-    box-shadow: 0 0 450px 100px rgba(167, 151, 255, 0.212);
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    transition: transform 0.1s;
-}
 
 body {
     font-family: 'Inter', sans-serif;

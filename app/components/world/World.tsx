@@ -1,78 +1,177 @@
-'use client';
-import React, { useEffect } from 'react';
-import * as THREE from 'three';
+"use client";
+
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
+import gsap from "gsap";
+
+const vertexShader = `
+  varying vec3 v_position;
+  varying vec2 vUv;
+
+  uniform float time;
+  uniform float scroll;
+  uniform float u_factor;
+
+  mat3 rotation3dX(float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return mat3(
+      1.0, 0.0, 0.0,
+      0.0, c, s,
+      0.0, -s, c
+    );
+  }
+
+  mat3 rotation3dY(float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return mat3(
+      c,   0.0, -s,
+      0.0, 1.0, 0.0,
+      s,   0.0,  c
+    );
+  }
+
+  void main () {
+    vUv = uv;
+    vec3 new_position = position;
+
+    float wave = 0.0;
+    wave += 0.10 * sin(time + position.x) + 0.05 * sin(1.0 * time + position.x) + 0.05 * sin(0.25 * time + position.x);
+    wave += 0.15 * sin(time + position.y) + 0.05 * sin(2.0 * time + position.y) + 0.05 * sin(0.25 * time + position.y);
+    wave += 0.20 * sin(time + position.z) + 0.05 * sin(0.5 * time + position.z) + 0.05 * sin(0.25 * time + position.z);
+
+    new_position *= mix(u_factor, 1.0, wave);
+
+    new_position *= rotation3dX(scroll * 0.001);
+    new_position *= rotation3dY(scroll * 0.002);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( new_position, 1.0 );
+    gl_PointSize = 1.5;
+    v_position = new_position;
+  }
+`;
+
+const fragmentShader = `
+  uniform float time;
+  uniform float u_opacity;
+  varying vec3 v_position;
+  varying vec2 vUv;
+
+  vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d )
+  {
+      return a + b*cos( 6.28318*(c*t+d) );
+  }
+
+  void main () {
+    vec3 color = vec3(0.051, 0.831, 0.427);
+    gl_FragColor = vec4(color, 1.0);
+  }
+`;
 
 export const Donut: React.FC = () => {
-    useEffect(() => {
-        const container = document.getElementById('three-container') as HTMLElement;
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        container.appendChild(renderer.domElement);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-        const geometry = new THREE.TorusGeometry(1.6, 0.5, 6, 14);
-        const material = new THREE.MeshBasicMaterial({ color: 0x97C7FF, wireframe: true });
-        const torus = new THREE.Mesh(geometry, material);
-        scene.add(torus);
+  useEffect(() => {
+    const scene = new THREE.Scene();
+    const clock = new THREE.Clock();
 
-        camera.position.z = 6;
+    const container = containerRef.current;
+    if (!container) return;
 
-        torus.rotation.y = Math.PI / 4;
-        torus.rotation.x = Math.PI / -6;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const aspect = width / height;
 
-        const targetRotation = { x: torus.rotation.x, y: torus.rotation.y };
-        const rotationSpeed = 0.005;
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      canvas: canvasRef.current || undefined,
+      alpha: true,
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
 
+    const camera = new THREE.PerspectiveCamera(50, aspect, 0.001, 100);
+    camera.position.set(0, 0, 20);
+    camera.updateProjectionMatrix();
 
-        const animate = () => {
-            requestAnimationFrame(animate);
+    const geometry = new THREE.IcosahedronGeometry(4, 32);
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        scroll: { value: 3 },
+        u_factor: { value: 0.5 },
+        u_opacity: { value: 0 },
+      },
+      vertexShader,
+      fragmentShader,
+      transparent: true,
+    });
 
-            torus.rotation.x += (targetRotation.x - torus.rotation.x) * 0.1;
-            torus.rotation.y += (targetRotation.y - torus.rotation.y) * 0.1;
+    const donut = new THREE.Points(geometry, material);
+    donut.scale.set(4, 4, 4);
+    scene.add(donut);
+    donut.position.y = -8;
 
-            torus.rotation.z += rotationSpeed;
+    const render = () => {
+      material.uniforms.time.value = clock.getElapsedTime();
+      donut.rotation.y += 0.005;
+      donut.rotation.x += 0.003;
 
-            renderer.render(scene, camera);
-        };
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    };
+    render();
 
-        animate();
+    container.addEventListener("mouseenter", () => {
+      gsap.to(donut.scale, {
+        x: 4,
+        y: 4,
+        z: 4,
+        duration: 0.2,
+        ease: "power2.inOut",
+      });
+    });
 
+    container.addEventListener("mouseleave", () => {
+      gsap.to(donut.scale, {
+        x: 5,
+        y: 5,
+        z: 5,
+        duration: 0.2,
+        ease: "power2.inOut",
+      });
+    });
 
-        const onMouseMove = (event: MouseEvent) => {
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    const onWindowResize = () => {
+      const newWidth = container.clientWidth;
+      const newHeight = container.clientHeight;
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newWidth, newHeight);
+    };
+    window.addEventListener("resize", onWindowResize);
 
-            targetRotation.x = mouseY * Math.PI * 0.5;
-            targetRotation.y = mouseX * Math.PI * 0.5;
-        };
+    return () => {
+      window.removeEventListener("resize", onWindowResize);
+      renderer.dispose();
+      geometry.dispose();
+      material.dispose();
+    };
+  }, []);
 
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('resize', handleResize);
-
-        function handleResize() {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        }
-
-        return () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('resize', handleResize);
-            container.removeChild(renderer.domElement);
-        };
-    }, []);
-
-    return (
-        <div
-            id="three-container"
-            className='opacity-40 mx-auto relative block overflow-clip'
-            style={{
-                width: '100%',
-                height: '100%',
-                maxWidth: '500px',
-                maxHeight: '282px'
-            }}
-        ></div>
-    );
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: "100%",
+        height: "364px",
+        background: "transparent",
+      }}
+    >
+      <canvas ref={canvasRef} />
+    </div>
+  );
 };
