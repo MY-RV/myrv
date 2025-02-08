@@ -1,12 +1,10 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import "./globals.css";
 
 import { ExperienceCard } from "./components/experience/ExperienceCard.tsx";
 import { ProjectCard } from "./components/projects/ProjectCard.tsx";
-
-import "./globals.css";
-
 import { experience, projects, social } from "./data/data.js";
 import { Donut } from "./components/world/World.tsx";
 
@@ -19,10 +17,10 @@ export default function Home() {
             Full-Stack Engineer - Product Developer
           </h2>
           <h1 className=" opacity-90 text-[#f7fff9] text-4xl mb-2 font-semibold">
-            I’m Minor, Full Stack Developer
+            Hi I&apos;m, Minor
           </h1>
           <p className="md:w-3/4 mr-4 scroll-mt-16 text-base text-[#e7feecca] lg:scroll-mt-24">
-            {`Software engineer specialized in front-end development with almost 4 years of experience in web applications. Passionate about intuitive interfaces and robust security practices. Before programming, `}
+            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. `}
             <Link
               className="transition-colors duration-200 ease-in-out font-medium text-[#9fecb0] hover:text-[#2ecd58] focus-visible:text-[#9891fb]"
               href="https://www.figma.com/@matthewvogas"
