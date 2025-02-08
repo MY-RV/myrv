@@ -22,7 +22,7 @@ interface Props {
 
 export const ExperienceCard = ({ startDate, endDate, name, description, stack, items, url }: Props) => {
     return (
-        <div className="group flex flex-col lg:flex-row gap-4 rounded w-full mb-4 lg:p-4 border border-transparent custom-border-gradient lg:hover:shadow-sm lg:hover:bg-[#928ec40a] transition-colors duration-200">
+        <div className="group flex flex-col gap-4 rounded w-full mb-4 lg:p-4 border border-transparent custom-border-gradient lg:hover:shadow-sm lg:hover:bg-[#928ec40a] transition-colors duration-200 h-full">
             <div className=" min-w-24 z-10 mb-2 mt-1 text-xs font-bold uppercase tracking-wide text-slate-500 sm:col-span-2">
                 <label>{startDate} - {endDate}</label>
             </div>
