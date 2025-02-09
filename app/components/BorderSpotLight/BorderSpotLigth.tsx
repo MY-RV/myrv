@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, ReactNode } from "react";
 
 /**
  * BoderSpotlight Component
@@ -24,18 +24,28 @@ import { useRef, useState } from "react";
  * ```
  */
 
-const BoderSpotlight = ({
+interface BoderSpotlightProps {
+  children: ReactNode;
+  borderColor?: string;
+  focusBorderColor?: string;
+  spotlightBorderColor?: string;
+}
+
+const BoderSpotlight: React.FC<BoderSpotlightProps> = ({
   children,
   borderColor = "white/5",
   focusBorderColor = "#97EB9D",
   spotlightBorderColor = "#97EB9D",
 }) => {
-  const divRef = useRef(null);
-  const [isFocused, setIsFocused] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [opacity, setOpacity] = useState(0);
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [position, setPosition] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const [opacity, setOpacity] = useState<number>(0);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return;
     const rect = divRef.current.getBoundingClientRect();
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -69,7 +79,7 @@ const BoderSpotlight = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         tabIndex={0}
-        className={`h-full rounded-md cursor-pointer border border-${borderColor} dark:border-gray-500 focus:border-${focusBorderColor} focus:outline-none transition-colors duration-500`}
+        className={`h-full rounded-md cursor-pointer border  dark:border-[#141e14] focus:border-${focusBorderColor} focus:outline-none transition-colors duration-500`}
       >
         {children}
       </div>

@@ -140,7 +140,7 @@ export const World: React.FC = () => {
 
             const globeColorMaterial = new THREE.MeshBasicMaterial({
                 transparent: true,
-                alphaTest: true,
+                alphaTest: 1,
                 side: THREE.DoubleSide,
             });
             const globeStrokeMaterial = new THREE.MeshBasicMaterial({
@@ -186,7 +186,7 @@ export const World: React.FC = () => {
             });
             let svgData = new XMLSerializer().serializeToString(svgMapDomEl);
             staticMapUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgData);
-            setMapTexture(globeColorMesh.material, staticMapUri);
+            setMapTexture(globeColorMesh.material as THREE.Material, staticMapUri);
 
             gsap.set(svgMapDomEl, {
                 attr: {
@@ -196,7 +196,7 @@ export const World: React.FC = () => {
             });
             svgData = new XMLSerializer().serializeToString(svgMapDomEl);
             staticMapUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgData);
-            setMapTexture(globeStrokesMesh.material, staticMapUri);
+            setMapTexture(globeStrokesMesh.material as THREE.Material, staticMapUri);
 
             if (svgCountries[hoveredCountryIdx] && countryNameEl) {
                 countryNameEl.innerHTML =
@@ -227,7 +227,7 @@ export const World: React.FC = () => {
                 dataUris[idx] =
                     "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgData);
             });
-            setMapTexture(globeSelectionOuterMesh.material, dataUris[hoveredCountryIdx]);
+            setMapTexture(globeSelectionOuterMesh.material as THREE.Material, dataUris[hoveredCountryIdx]);
         }
 
         // Actualiza la textura de selección según la posición en el mapa
@@ -249,7 +249,7 @@ export const World: React.FC = () => {
                     const isHovering = svgCountries[i].isPointInFill(pointObj);
                     if (isHovering && i !== hoveredCountryIdx) {
                         hoveredCountryIdx = i;
-                        setMapTexture(globeSelectionOuterMesh.material, dataUris[hoveredCountryIdx]);
+                        setMapTexture(globeSelectionOuterMesh.material as THREE.Material, dataUris[hoveredCountryIdx]);
                         if (countryNameEl) {
                             countryNameEl.innerHTML =
                                 svgCountries[hoveredCountryIdx].getAttribute("data-name") || "";
@@ -268,7 +268,9 @@ export const World: React.FC = () => {
                 rayCaster.setFromCamera(pointer, camera);
                 const intersects = rayCaster.intersectObject(globeStrokesMesh);
                 if (intersects.length) {
-                    updateMap(intersects[0].uv);
+                    if (intersects[0].uv) {
+                        updateMap(intersects[0].uv);
+                    }
                 }
             }
 
