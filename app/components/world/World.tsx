@@ -7,7 +7,6 @@ import gsap from "gsap";
 const vertexShader = `
   varying vec3 v_position;
   varying vec2 vUv;
-
   uniform float time;
   uniform float scroll;
   uniform float u_factor;
@@ -21,7 +20,7 @@ const vertexShader = `
       0.0, -s, c
     );
   }
-
+  
   mat3 rotation3dY(float angle) {
     float s = sin(angle);
     float c = cos(angle);
@@ -31,22 +30,21 @@ const vertexShader = `
       s,   0.0,  c
     );
   }
-
+  
   void main () {
     vUv = uv;
     vec3 new_position = position;
-
+    
     float wave = 0.0;
     wave += 0.10 * sin(time + position.x) + 0.05 * sin(1.0 * time + position.x) + 0.05 * sin(0.25 * time + position.x);
     wave += 0.15 * sin(time + position.y) + 0.05 * sin(2.0 * time + position.y) + 0.05 * sin(0.25 * time + position.y);
     wave += 0.20 * sin(time + position.z) + 0.05 * sin(0.5 * time + position.z) + 0.05 * sin(0.25 * time + position.z);
-
+    
     new_position *= mix(u_factor, 1.0, wave);
-
     new_position *= rotation3dX(scroll * 0.001);
     new_position *= rotation3dY(scroll * 0.002);
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( new_position, 1.0 );
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(new_position, 1.0);
     gl_PointSize = 1.5;
     v_position = new_position;
   }
@@ -57,12 +55,11 @@ const fragmentShader = `
   uniform float u_opacity;
   varying vec3 v_position;
   varying vec2 vUv;
-
-  vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d )
-  {
+  
+  vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d ) {
       return a + b*cos( 6.28318*(c*t+d) );
   }
-
+  
   void main () {
     vec3 color = vec3(0.051, 0.831, 0.427);
     gl_FragColor = vec4(color, 1.0);
@@ -76,7 +73,6 @@ export const Donut: React.FC = () => {
   useEffect(() => {
     const scene = new THREE.Scene();
     const clock = new THREE.Clock();
-
     const container = containerRef.current;
     if (!container) return;
 
@@ -110,37 +106,36 @@ export const Donut: React.FC = () => {
     });
 
     const donut = new THREE.Points(geometry, material);
-    donut.scale.set(4, 4, 4);
+
+    const isMobile = window.innerWidth < 768;
+    const scaleValue = isMobile ? 3 : 4;
+    donut.scale.set(scaleValue, scaleValue, scaleValue);
+
     scene.add(donut);
     donut.position.y = -8;
 
     const render = () => {
       material.uniforms.time.value = clock.getElapsedTime();
-      donut.rotation.y += 0;
-      donut.rotation.x += 0;
-
       camera.lookAt(scene.position);
       renderer.render(scene, camera);
       requestAnimationFrame(render);
     };
     render();
 
-    
     container.addEventListener("mouseenter", () => {
       gsap.to(donut.scale, {
-        x: 4,
-        y: 4,
-        z: 4,
+        x: scaleValue,
+        y: scaleValue,
+        z: scaleValue,
         duration: 0.2,
         ease: "power2.inOut",
       });
     });
-
     container.addEventListener("mouseleave", () => {
       gsap.to(donut.scale, {
-        x: 4,
-        y: 4,
-        z: 4,
+        x: scaleValue,
+        y: scaleValue,
+        z: scaleValue,
         duration: 0.2,
         ease: "power2.inOut",
       });

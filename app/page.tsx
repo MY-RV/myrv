@@ -12,28 +12,27 @@ export default function Home() {
   return (
     <main className=" gap-4 text-[#fafafaf8] w-full ">
       <section className="flex mb-6 md:mb-0 flex-col top-0 border-b border-white/5 justify-center mt-12">
-        <div className="px-6 md:px-0 flex flex-col gap-2 justify-center items-center">
+        <div className="px-6 md:px-0 flex flex-col gap-2 justify-center md:items-center">
           <h2 className="text-sm uppercase font-medium  text-[#41e36c]">
             Full-Stack Engineer & Product Developer
           </h2>
-          <h1 className="mt-2 text-center opacity-90 text-[#f7fff9] text-5xl mb-2 font-semibold">
+          <h1 className="mt-2 text-left md:text-center opacity-90 text-[#f7fff9] text-5xl mb-2 font-semibold">
             Hi I&apos;m, Minor
           </h1>
-          <p className="mt-3 text-center md:w-3/4 mr-4 scroll-mt-16 text-md text-[#e7feecca] lg:scroll-mt-24">
-            {`I’m a goal-oriented full-stack developer with 4+ years of experience and a strong background in web development.   `}
+          <p className="mt-3 md:text-center md:w-3/4 mr-4 scroll-mt-16 text-md text-[#e7feecca] lg:scroll-mt-24">
+            {`I’m a seasoned backend architect with 5+ years of experience. `}
             <Link
               className="transition-colors duration-200 ease-in-out font-medium text-[#9fecb0] hover:text-[#2ecd58] focus-visible:text-[#9891fb]"
               href="#experience"
             >
-              {` I’m committed to continuous learning and delivering high-quality,
-              scalable solutions.`}
+              {`My expertise spans microservices, API design, and robust database management—delivering scalable solutions.`}
             </Link>
-            {` Known for problem-solving, adaptability, and driving project success as a reliable team player. `}
+            {` Renowned for strategic problem-solving and leadership in technical teams. `}
             <Link
               className="transition-colors duration-200 ease-in-out font-medium text-[#9fecb0] hover:text-[#2ecd58] focus-visible:text-[#9891fb]"
-              href="mailto:mvttheo@outlook.com"
+              href="mailto:itsmyrvmail@gmail.com"
             >
-              {`Let's chat.`}
+              {`Let’s connect.`}
             </Link>
           </p>
         </div>
