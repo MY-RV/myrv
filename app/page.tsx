@@ -17,7 +17,7 @@ export default function Home() {
             Full-Stack Engineer & Product Developer
           </h2>
           <h1 className="mt-2 text-left md:text-center opacity-90 text-[#f7fff9] text-5xl mb-2 font-semibold">
-            Hi I&apos;m, Minor
+            Hi I&apos;m Minor,
           </h1>
           <p className="mt-3 md:text-center md:w-3/4 mr-4 scroll-mt-16 text-md text-[#e7feecca] lg:scroll-mt-24">
             {`I’m a seasoned backend architect with 5+ years of experience. `}
