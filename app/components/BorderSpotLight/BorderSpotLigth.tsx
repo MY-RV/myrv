@@ -79,7 +79,7 @@ const BoderSpotlight: React.FC<BoderSpotlightProps> = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         tabIndex={0}
-        className={`h-full rounded-md cursor-pointer border  dark:border-[#141e14] focus:border-${focusBorderColor} focus:outline-none transition-colors duration-500`}
+        className={`h-full rounded-md cursor-pointer border border-[#141e14] focus:border-${focusBorderColor} focus:outline-none transition-colors duration-500`}
       >
         {children}
       </div>
