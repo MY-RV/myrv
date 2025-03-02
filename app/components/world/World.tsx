@@ -116,8 +116,8 @@ export const Donut: React.FC = () => {
 
     const render = () => {
       material.uniforms.time.value = clock.getElapsedTime();
-      donut.rotation.y += 0.005;
-      donut.rotation.x += 0.003;
+      donut.rotation.y += 0;
+      donut.rotation.x += 0;
 
       camera.lookAt(scene.position);
       renderer.render(scene, camera);
@@ -125,6 +125,7 @@ export const Donut: React.FC = () => {
     };
     render();
 
+    
     container.addEventListener("mouseenter", () => {
       gsap.to(donut.scale, {
         x: 4,
@@ -137,9 +138,9 @@ export const Donut: React.FC = () => {
 
     container.addEventListener("mouseleave", () => {
       gsap.to(donut.scale, {
-        x: 5,
-        y: 5,
-        z: 5,
+        x: 4,
+        y: 4,
+        z: 4,
         duration: 0.2,
         ease: "power2.inOut",
       });

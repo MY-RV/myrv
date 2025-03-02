@@ -12,22 +12,23 @@ export default function Home() {
   return (
     <main className=" gap-4 text-[#fafafaf8] w-full ">
       <section className="flex mb-6 md:mb-0 flex-col top-0 border-b border-white/5 justify-center mt-12">
-        <div className="px-6 md:px-0 flex flex-col gap-2 justify-center">
+        <div className="px-6 md:px-0 flex flex-col gap-2 justify-center items-center">
           <h2 className="text-sm uppercase font-medium  text-[#41e36c]">
-            Full-Stack Engineer - Product Developer
+            Full-Stack Engineer & Product Developer
           </h2>
-          <h1 className=" opacity-90 text-[#f7fff9] text-4xl mb-2 font-semibold">
+          <h1 className="mt-2 text-center opacity-90 text-[#f7fff9] text-5xl mb-2 font-semibold">
             Hi I&apos;m, Minor
           </h1>
-          <p className="md:w-3/4 mr-4 scroll-mt-16 text-base text-[#e7feecca] lg:scroll-mt-24">
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. `}
+          <p className="mt-3 text-center md:w-3/4 mr-4 scroll-mt-16 text-md text-[#e7feecca] lg:scroll-mt-24">
+            {`I’m a goal-oriented full-stack developer with 4+ years of experience and a strong background in web development.   `}
             <Link
               className="transition-colors duration-200 ease-in-out font-medium text-[#9fecb0] hover:text-[#2ecd58] focus-visible:text-[#9891fb]"
-              href="https://www.figma.com/@matthewvogas"
+              href="#experience"
             >
-              I used to design a lot in Figma,
+              {` I’m committed to continuous learning and delivering high-quality,
+              scalable solutions.`}
             </Link>
-            {` so I have the perfect pixel eye for interfaces. `}
+            {` Known for problem-solving, adaptability, and driving project success as a reliable team player. `}
             <Link
               className="transition-colors duration-200 ease-in-out font-medium text-[#9fecb0] hover:text-[#2ecd58] focus-visible:text-[#9891fb]"
               href="mailto:mvttheo@outlook.com"
@@ -40,7 +41,7 @@ export default function Home() {
           <Donut />
         </div>
       </section>
-      <section className=" lg:pt-8 lg:py-24 w-full ">
+      <section id="experience" className="lg:pt-8 lg:py-24 w-full ">
         <div className="px-4 md:px-0 relative z-0 hover-opacity-others grid grid-cols-1 gap-4">
           {experience.map((experience, index) => (
             <div className="child" key={index}>
@@ -76,9 +77,9 @@ export default function Home() {
           ))}
         </div>
         <div className="flex w-full flex-col items-center justify-center">
-          <p className="mt-32 text-center text-lg font-medium  text-[#4bd268] sm:text-xl custom-underline">
-            Thanks for reaching out
-          </p>
+          <button className="mt-32 text-center text-lg font-medium  text-[#4bd268] sm:text-xl custom-underline">
+            Thanks for reaching out _
+          </button>
           <div className=" flex  justify-center gap-4 pt-6 lg:mt-0 mb-12 lg:mb-12 ">
             {social.map((social, index) => (
               <Link

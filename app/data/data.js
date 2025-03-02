@@ -1,112 +1,90 @@
 import LinkSvg from "../../public/icons/Link.svg";
 
-import figma from "../../public/icons/figma.svg";
 import github from "../../public/icons/github.svg";
 import linkedin from "../../public/icons/linkedin.svg";
-import instagram from "../../public/icons/instagram.svg";
-
 import GesmiaWeb from "../../public/images/projects/GesmiaWeb.png";
-import PixelPerfect from "../../public/images/projects/PixelPerfect.png";
-import Nothing from "../../public/images/projects/Nothing.png";
+import Xengly from "../../public/images/projects/xengly.png";
 
 export const experience = [
   {
-    startDate: "2021",
-    endDate: "2024",
-    name: "Full-stack Developer at Golabs",
+    startDate: "2024",
+    endDate: "2025",
+    name: "Nitel  ",
     description: `
-        Successfully contributed to six projects, demonstrating expertise in both
-        individual and collaborative settings. Proficiently implemented multi-tenancy,
-        tenant-aware processes, OAuth.
+     Creation, maintenance and development of new functionalities in an internal Nitel system, with Express and Angular
       `,
-    stack: [
-      "Laravel",
-      "DotNet Core",
-      "Angular",
-      "Vue",
-      "GraphQL",
-    ],
+    stack: ["Angular", "Express", "Node"],
     items: [],
-    url: "", 
+    url: "",
   },
   {
-    startDate: "2021",
-    endDate: "2024",
-    name: "VADI GT – Process Management System",
+    startDate: "2024",
+    endDate: "2025",
+    name: "STN S.A.",
     description: `
-        Development and improvement of a digital valuation platform widely used across
-        Latin America, allowing the management of time, impediments, communication,
-        flexibility, personalized reporting, and a unique system for each consumer.
+     Developed a CMS-based website to meet specific client requirements.
+Collaborated with designers to create a functional, user-friendly platform that aligned with organizational goals.
+        
+      `,
+    stack: ["Laravel", "DotNet Core", "Vue", "GraphQL"],
+    items: [],
+    url: "",
+  },
+  {
+    startDate: "2023",
+    endDate: "2024",
+    name: "Vadi GT",
+    description: `
+       Designed and enhanced a valuation platform used across Latin America.
+Migrated the architecture to micro-frontends for improved scalability and state management.
+Introduced new security layers and implemented custom solutions for client-specific needs.
+      `,
+    stack: ["Ruby on Rails", "Scripting"],
+    items: [],
+    url: "",
+  },
+  {
+    startDate: "2022",
+    endDate: "2023",
+    name: "American Student Tuition System",
+    description: `
+        Supported third-party integrations to synchronize student data.
+Created and modified Ruby scripts, assisted with quality assurance, and provided guidance on complex use cases.
       `,
     stack: [
+      "Multi-tenancy",
       "Laravel",
-      "DotNet Core",
-      "Angular",
-      "Vue",
-      "GraphQL",
+      ".NET Core",
       "Docker",
+      "Pusher",
       "TSQL",
     ],
     items: [],
     url: "",
   },
   {
-    startDate: "2021",
-    endDate: "2024",
-    name: "FOURTH PROJECT – American Student Tuition System",
-    description: `
-        Support team to synchronize student data with organizations through third parties.
-        Enrollment Information System that manages important student data for schools
-        (emergency contacts, family, and medical information).
-      `,
-    stack: ["Ruby", "Scripting"],
-    items: [],
-    url: "",
-  },
-  {
-    startDate: "2021",
-    endDate: "2024",
-    name: "CRUZ ROJA CR – Benemérita Cruz Roja Costarricense",
+    startDate: "2022",
+    endDate: "2023",
+    name: "Costa Rican Red Cross Website",
     description: `
         Donation project: a new website for the Costa Rican Red Cross. Developed on a CMS
         with coordination from a design team. Implemented specific client requirements for
         more efficient maintenance and functionality.
       `,
-    stack: ["CMS", "HTML", "CSS", "JavaScript"],
+    stack: ["Go", "MySQL", "HTML", "CSS", "JavaScript"],
     items: [],
     url: "",
   },
   {
     startDate: "2021",
-    endDate: "2024",
-    name: "SECOND PROJECT – Organization Management System",
+    endDate: "2022",
+    name: "Golabs Tech",
     description: `
-        SaaS application for companies providing outsourcing services, centralizing
-        production processes. Features include project cost management, time tracking,
-        estimations, project teams, business units, roles/permissions, client satisfaction,
-        paid time off management, and more.
+        Successfully contributed to six projects, demonstrating expertise in both
+        individual and collaborative settings. Proficiently implemented multi-tenancy,
+        tenant-aware processes, OAuth.
       `,
-    stack: [
-      "Laravel",
-      ".NET Core",
-      "Docker",
-      "Pusher",
-      "Multi-tenancy",
-      "TSQL",
-    ],
-    items: [],
-    url: "",
-  },
-  {
-    startDate: "2021",
-    endDate: "2021",
-    name: "FIRST PROJECT – Educational System",
-    description: `
-        A school program that promotes the use and development of life skills as a protective
-        factor against early onset of psychoactive substance use. Developed initially as a 
-        high school practice project.
-      `,
-    stack: ["Java", "MySQL", "HTML", "CSS", "JavaScript"],
+    stack: ["Strapi", "Supabase", "Node", "React", "Go", "PostgreSQL"],
     items: [],
     url: "",
   },
@@ -117,6 +95,13 @@ export const projects = [
     image: GesmiaWeb,
     name: "Gesmia",
     description: "From launching landing pages to creating fast MVPs",
+    items: [{}],
+    url: "https://gesmia.com/",
+  },
+  {
+    image: Xengly,
+    name: "Xengly",
+    description: "Building for startups and enterprises",
     items: [{}],
     url: "https://gesmia.com/",
   },
@@ -149,23 +134,13 @@ export const blogs = [
 
 export const social = [
   {
-    icon: figma,
-    name: "Figma",
-    url: "https://www.figma.com/@matthewvogas",
-  },
-  {
     icon: github,
     name: "Github",
-    url: "https://github.com/matthewvogas",
+    url: "https://github.com/my-rv",
   },
   {
     icon: linkedin,
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/matthewvogas/",
-  },
-  {
-    icon: instagram,
-    name: "Instagram",
-    url: "https://www.instagram.com/matthewvogas/",
+    url: "https://www.linkedin.com/in/my-rv/",
   },
 ];
